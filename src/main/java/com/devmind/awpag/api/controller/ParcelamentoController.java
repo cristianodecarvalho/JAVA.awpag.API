@@ -1,5 +1,6 @@
 package com.devmind.awpag.api.controller;
 
+import com.devmind.awpag.api.model.ParcelamentoDTO;
 import com.devmind.awpag.domain.exception.NegocioException;
 import com.devmind.awpag.domain.model.Cliente;
 import com.devmind.awpag.domain.model.Parcelamento;
@@ -28,9 +29,18 @@ public class ParcelamentoController {
     }
 
     @GetMapping("/{parcelamentoId}")
-    public ResponseEntity<Parcelamento> buscar(@PathVariable Long parcelamentoId) {
+    public ResponseEntity<ParcelamentoDTO> buscar(@PathVariable Long parcelamentoId) {
         return parcelamentoRepository.findById(parcelamentoId)
-                .map(ResponseEntity::ok)
+                .map(parcelamento -> {
+                    var parcelamentoDTO = new ParcelamentoDTO();
+                    parcelamentoDTO.setId(parcelamento.getId());
+                    parcelamentoDTO.setNomeCliente(parcelamento.getCliente().getNome());
+                    parcelamentoDTO.setDescricao(parcelamento.getDescricao());
+                    parcelamentoDTO.setValorTotal(parcelamento.getValorTotal());
+                    parcelamentoDTO.setParcelas(parcelamento.getQuantidadeParcelas());
+                    parcelamentoDTO.setDataCriacao(parcelamento.getDataCriacao());
+                    return ResponseEntity.ok(parcelamentoDTO);
+                })
                 .orElse(ResponseEntity.notFound().build());
     }
 
