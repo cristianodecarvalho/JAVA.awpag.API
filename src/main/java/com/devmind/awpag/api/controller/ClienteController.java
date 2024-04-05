@@ -2,8 +2,8 @@ package com.devmind.awpag.api.controller;
 
 import com.devmind.awpag.domain.model.Cliente;
 import com.devmind.awpag.domain.repository.ClienteRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +35,12 @@ public class ClienteController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Cliente adicionar(@RequestBody Cliente cliente) {
+    public Cliente adicionar(@RequestBody @Valid Cliente cliente) {
         return clienteRepository.save(cliente);
     }
 
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable  Long clienteId, @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> atualizar(@PathVariable  Long clienteId, @RequestBody @Valid Cliente cliente) {
         if (!clienteRepository.existsById(clienteId)) {
             return ResponseEntity.notFound().build();
         }
