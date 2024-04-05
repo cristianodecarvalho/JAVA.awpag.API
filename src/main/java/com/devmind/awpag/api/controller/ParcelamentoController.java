@@ -1,8 +1,6 @@
 package com.devmind.awpag.api.controller;
 
 import com.devmind.awpag.api.model.ParcelamentoDTO;
-import com.devmind.awpag.domain.exception.NegocioException;
-import com.devmind.awpag.domain.model.Cliente;
 import com.devmind.awpag.domain.model.Parcelamento;
 import com.devmind.awpag.domain.repository.ParcelamentoRepository;
 import com.devmind.awpag.domain.services.ParcelamentoService;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/parcelamentos")

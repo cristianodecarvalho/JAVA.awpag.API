@@ -1,6 +1,5 @@
 package com.devmind.awpag.api.controller;
 
-import com.devmind.awpag.domain.exception.NegocioException;
 import com.devmind.awpag.domain.model.Cliente;
 import com.devmind.awpag.domain.repository.ClienteRepository;
 import com.devmind.awpag.domain.services.ClienteService;
@@ -31,10 +30,7 @@ public class ClienteController {
     public ResponseEntity<Cliente> buscar(@PathVariable  Long clienteId) {
         Optional<Cliente> cliente = clienteRepository.findById(clienteId);
 
-        if (cliente.isPresent()) {
-            return ResponseEntity.ok(cliente.get());
-        }
-        return ResponseEntity.notFound().build();
+        return cliente.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
