@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @Setter
 public class ParcelamentoDTO {
     private Long id;
-    private String nomeCliente;
+    private ClienteResumoDTO cliente;
     private String descricao;
     private BigDecimal valorTotal;
     private Integer parcelas;
